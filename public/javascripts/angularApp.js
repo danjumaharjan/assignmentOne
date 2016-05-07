@@ -1,18 +1,19 @@
-var app = angular.module('app', []);
+var app = angular.module('pie-chart', []);
+google.load("visualization", "1", {packages:["corechart"]});
 
-app.controller('dataController', function($scope, $http) {
-  $http.get("https://assignment-1-danjumaharjan-1.c9users.io/sample").then(function (response) {
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(function() {
-        formatDataTable(response.data); });});});
+app.controller('MainCtrl', ['$scope', '$http',  function($scope, $http) {
+  $http.get("/sample").success(function (data) {
+        formatDataTable(data);
+  });
+}]);
 
 function formatDataTable(chartdata) {
   var data = [];
   var header = ['Cause of Death', 'Death Count'];
   
-  data.push(header);
+  console.table(chartdata);
   
-   console.table(chartdata);
+  data.push(header);
   
   for (var i = 0; i < chartdata.length; i++) {
     var temp = [];
