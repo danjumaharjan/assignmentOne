@@ -66,33 +66,33 @@ module.exports = function(passport) {
 		})
 	);
 	
-// route for twitter authentication and login
-// different scopes while logging in
-router.get('/login/twitter',  
-  passport.authenticate('twitter')
-);
+	// route for twitter authentication and login
+	// different scopes while logging in
+	router.get('/login/twitter',  
+	  passport.authenticate('twitter')
+	);
  
-// handle the callback after facebook has authenticated the user
-router.get('/login/twitter/callback',
-  passport.authenticate('twitter', {
-    successRedirect : '/twitter',
-    failureRedirect : '/'
-  })
-);
- 
-/* GET Twitter View Page */
-router.get('/twitter', isAuthenticated, function(req, res){
-  res.render('twitter', { user: req.user });
-});
-	
+	// handle the callback after facebook has authenticated the user
+	router.get('/login/twitter/callback',
+	  passport.authenticate('twitter', {
+	    successRedirect : '/twitter',
+	    failureRedirect : '/'
+	  })
+	);
+	 
+	/* GET Twitter View Page */
+	router.get('/twitter', isAuthenticated, function(req, res){
+	  res.render('twitter', { user: req.user });
+	});
+		
 	router.get('/sample', isAuthenticated, function(req, res, next) {
-	  Sample.find({}, {_id: 0}, function(err, data){
+	  Sample.find({}, function(err, data){
 	  if(err){ return next(err); }
 	  	res.json(data);
 	  });
 	});
 
-	return router;
+return router;
 }
 
 
